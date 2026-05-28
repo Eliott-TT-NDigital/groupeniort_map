@@ -56,7 +56,11 @@ const server = http.createServer((req, res) => {
       return
     }
     const ext = path.extname(filePath)
-    res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' })
+    const headers = { 'Content-Type': MIME[ext] || 'application/octet-stream' }
+    if (['.html', '.js', '.css', '.json'].includes(ext)) {
+      headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    }
+    res.writeHead(200, headers)
     res.end(data)
   })
 })
