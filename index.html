@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cartographie Digitale — Groupe Niort</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="header-title">Cartographie Digitale — Groupe Niort</div>
+    <div class="header-sub">Sites, applications & outils</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;position:relative;">
+    <div class="legend" id="legend"></div>
+    <button id="burger-btn" class="burger-btn" aria-label="Ouvrir le menu">☰</button>
+    <div id="sidebar-backdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+    <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+      <div class="sidebar-header">
+        <div class="sidebar-title">Menu</div>
+        <button id="sidebar-close" class="sidebar-close-btn" aria-label="Fermer la sidebar">✕</button>
+      </div>
+      <label class="menu-item"><input id="m-edit-mode" type="checkbox"><span class="mi-text">Mode édition</span></label>
+      <button id="m-add-btn" class="menu-item"><span class="mi-text">Ajouter</span></button>
+      <button id="m-export-btn" class="menu-item"><span class="mi-text">Exporter JSON</span></button>
+      <button id="m-import-btn" class="menu-item"><span class="mi-text">Importer JSON</span></button>
+      <input id="m-import-file" type="file" accept="application/json" style="display:none">
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="stats" id="stats"></div>
+
+  <div class="search-wrap">
+    <span class="search-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+    <input class="search-input" id="search" type="text" placeholder="Rechercher un site, outil, technologie…" oninput="doSearch(this.value)">
+  </div>
+
+  <div id="cats"></div>
+</div>
+
+<div class="overlay" id="overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modal">
+    <div class="modal-color-bar" id="m-bar"></div>
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="m-title">—</div>
+        <div class="modal-cat" id="m-cat"></div>
+      </div>
+      <button class="close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="m-body"></div>
+  </div>
+</div>
+
+<div class="overlay" id="edit-overlay" onclick="if(event.target===this)closeEditForm()">
+  <div class="modal" id="edit-modal">
+    <div class="modal-color-bar" id="edit-bar" style="background:#3A6EA5"></div>
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="edit-title">Modifier / Ajouter</div>
+        <div class="modal-cat" id="edit-sub"></div>
+      </div>
+      <button class="close-btn" onclick="closeEditForm()">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="edit-form">
+        <input type="hidden" id="original-name">
+        <div class="field"><div class="field-label">Nom</div><input id="field-name" class="field-value" required></div>
+        <div class="field"><div class="field-label">Catégorie</div><select id="field-cat" class="field-value"></select></div>
+        <div class="field"><div class="field-label">Domaine</div><select id="field-domain" class="field-value"></select></div>
+        <div class="field"><div class="field-label">Technologie</div><input id="field-tech" class="field-value"></div>
+        <div class="field"><div class="field-label">Couleur tech (hex)</div><input id="field-techcolor" class="field-value" placeholder="#3A6EA5"></div>
+        <div class="field"><div class="field-label">Gestion / Interlocuteur</div><input id="field-gestion" class="field-value"></div>
+        <div class="field"><div class="field-label">Développement</div><input id="field-dev" class="field-value"></div>
+        <div class="field"><div class="field-label">Hébergement</div><input id="field-hebergement" class="field-value"></div>
+        <div class="field"><div class="field-label">Description</div><textarea id="field-desc" class="field-value" rows="4"></textarea></div>
+        <div class="field"><div class="field-label">Lien</div><input id="field-lien" class="field-value"></div>
+        <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+          <button type="submit" class="btn">Enregistrer</button>
+          <button type="button" class="btn" id="cancel-edit">Annuler</button>
+          <button type="button" id="delete-item" class="btn danger" style="margin-left:auto;display:none">Supprimer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="storage.js" defer></script>
+<script src="app.js" defer></script>
+</body>
+</html>
