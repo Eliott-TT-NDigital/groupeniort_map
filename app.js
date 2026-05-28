@@ -31,7 +31,7 @@ const ITEMS={
   "Full Service":{cat:"Reman",gestion:"N Digital",dev:"WordPress",hebergement:"N Digital",tech:"WordPress",techColor:"#3A6EA5",desc:"Application de vente pour professionnels avec suivi factures / BL et commandes.",lien:"https://fullservice-reman.fr"},
   "App Full Service":{cat:"Reman",gestion:"EVVI",dev:"Symfony (PHP)",hebergement:"Aquaray",tech:"Symfony",techColor:"#6c757d",desc:"Application de suivi de réparation de filtre à particules.",lien:"https://app.fullservice-reman.fr/connexion"},
   "Reman Expert":{cat:"Reman",gestion:"Octevia (Julien de Sablet)",dev:"WordPress / WooCommerce",hebergement:"Webaxys",tech:"WordPress",techColor:"#3A6EA5",desc:"Site regroupant l'ensemble des applications Reman.",lien:"https://reman-expert.fr"},
-  "Maloc EAD":{cat:"Reman",gestion:"EVVI",dev:"WordPress / WooCommerce",hebergement:"Webaxys",tech:"WordPress",techColor:"#3A6EA5",desc:"Site de location d'EAD pour particuliers, avec gestion d'installations.",lien:"https://maloc-ead.fr"},
+  "Maloc EAD":{cat:"Reman",gestion:"EVVI",dev:"WordPress / WooCommerce",hebergement:"Webaxys",tech:"WordPress",techColor:"#3A6EA5",desc:"Site de location d'EAD pour particuliers, avec gestion d'installations.",lien:"https://maloc-ead.fr",docs:"https://docs.n-digital.fr/docs/category/maloc-ead"},
   "Connexion Client NF PL":{cat:"Poids Lourds",gestion:"InConcept",dev:"AS400",hebergement:"Groupe Niort (Rouen)",tech:"AS400",techColor:"#8E44AD",desc:"Catalogue en ligne des pièces poids lourd avec prix et descriptions produits.",lien:"https://webpl.niortfreres.fr"},
   "Connexion Client DPAN":{cat:"Poids Lourds",gestion:"InConcept",dev:"AS400",hebergement:"Groupe Niort (Rouen)",tech:"AS400",techColor:"#8E44AD",desc:"Catalogue en ligne des pièces poids lourd, achat de pièces, liste des prix et descriptions.",lien:"https://webdpan.dpan.fr"},
   "Connexion client adfortia":{cat:"Poids Lourds",gestion:"InConcept",dev:"AS400",hebergement:"Groupe Niort (Rouen)",tech:"AS400",techColor:"#8E44AD",desc:"Catalogue en ligne des pièces poids lourd, achat de pièces, liste des prix et descriptions.",lien:"https://webadfortia.adfortia.fr"},
@@ -66,6 +66,11 @@ const ITEMS={
   "Facturéo":{cat:"NFS (divers)",gestion:"NDigital / EVVI",dev:"Web",hebergement:"Groupe Niort",tech:"Web",techColor:"#555",desc:"Application de consultation des factures pour les clients du Groupe Niort.",lien:"https://factureo.gpnsi.local:3000/"},
   "HR Maps":{cat:"NFS (divers)",gestion:"Ressources Humaines",dev:"Inconnu",hebergement:"HRMAPS",tech:"Web",techColor:"#555",desc:"Application de gestion de données pour les employés (fiches de paie, actualités…)"},
   "Octime":{cat:"NFS (divers)",gestion:"RH / Oasis Projet",dev:"Web",hebergement:"Octime (SaaS)",tech:"Web",techColor:"#555",desc:"Application de gestion des horaires et congés pour employés et managers.",lien:"https://saas-niortfreres.octime.net/wd240awp/wd240awp.exe/connect/weoctime100?ini=niortfreres"}
+};
+
+// Documentation par défaut — appliquée après chargement du localStorage si absent
+const DEFAULT_DOCS={
+  "Maloc EAD":"https://docs.n-digital.fr/docs/category/maloc-ead"
 };
 
 // Relations entre éléments : [source, cible, label optionnel]
@@ -138,6 +143,7 @@ function buildStats(){
 
 function buildLegend(){
   const leg=document.getElementById('legend');
+  leg.innerHTML='';
   CATS.forEach(cat=>{
     const el=document.createElement('span');
     el.className='leg';
@@ -207,6 +213,7 @@ function buildCats(){
           <span class="item-dot" style="background:${cat.color}"></span>
           <span class="item-name" title="${name}">${name}</span>
           ${LINKS_BY[name]?`<span class="item-links-badge">${LINKS_BY[name].length}</span>`:''}
+          ${d?.docs?`<a class="item-docs-btn" href="${d.docs}" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Voir la documentation">Docs</a>`:''}
           <span class="item-tech" style="background:${hex2rgba(d?.techColor||'#888',.12)};color:${d?.techColor||'#888'}">${d?.tech||''}</span>`;
         item.onclick=()=>{ if(editMode) openEditForm(name); else openItem(name,cat.color) };
         itemsEl.appendChild(item);
@@ -309,12 +316,31 @@ function doSearch(q){
   });
 }
 
-buildStats();
-buildLegend();
-buildCats();
+let lastKnownSavedAt = null;
 
-// Persistence via StorageAPI (storage.js)
-function saveState(){ return window.StorageAPI.save({CATS,ITEMS,LINKS}); }
+function saveState(){
+  const data = {CATS, ITEMS, LINKS, _savedAt: Date.now()};
+  lastKnownSavedAt = data._savedAt;
+  return window.StorageAPI.save(data);
+}
+
+function applyDocDefaults(){
+  Object.entries(DEFAULT_DOCS).forEach(([name,url])=>{
+    if(ITEMS[name] && ITEMS[name].docs===undefined) ITEMS[name].docs=url;
+  });
+}
+
+function rebuildLinksBy(){
+  Object.keys(LINKS_BY).forEach(k=>delete LINKS_BY[k]);
+  LINKS.forEach(([src,dst,label])=>{
+    if(!LINKS_BY[src])LINKS_BY[src]=[];
+    LINKS_BY[src].push({target:dst,label:label||''});
+  });
+}
+
+function pruneEmptyDomains(){
+  CATS.forEach(c=>{ c.domaines=c.domaines.filter(d=>d.items.length>0); });
+}
 
 function loadState(){
   const state = window.StorageAPI.load();
@@ -324,6 +350,7 @@ function loadState(){
   if(state.LINKS) { LINKS.length=0; state.LINKS.forEach(l=>LINKS.push(l)); }
   Object.keys(LINKS_BY).forEach(k=>delete LINKS_BY[k]);
   LINKS.forEach(([src,dst,label])=>{ if(!LINKS_BY[src])LINKS_BY[src]=[]; LINKS_BY[src].push({target:dst,label:label||''}) });
+  applyDocDefaults();
   return true;
 }
 
@@ -336,6 +363,7 @@ function importStateFromFile(file){
     if(state.LINKS) { LINKS.length=0; state.LINKS.forEach(l=>LINKS.push(l)); }
     Object.keys(LINKS_BY).forEach(k=>delete LINKS_BY[k]);
     LINKS.forEach(([src,dst,label])=>{ if(!LINKS_BY[src])LINKS_BY[src]=[]; LINKS_BY[src].push({target:dst,label:label||''}) });
+    applyDocDefaults();
     buildStats(); buildLegend(); buildCats();
   }).catch(()=>alert('JSON invalide'));
 }
@@ -348,12 +376,14 @@ function populateCatOptions(){
 }
 
 function populateDomainOptions(catId, selected){
-  const sel=document.getElementById('field-domain');
-  sel.innerHTML='';
+  const dl=document.getElementById('field-domain-list');
+  const inp=document.getElementById('field-domain');
+  if(!dl||!inp) return;
+  dl.innerHTML='';
   const cat=CATS.find(c=>c.id===catId);
   if(!cat) return;
-  cat.domaines.forEach(d=>{ const o=document.createElement('option'); o.value=d.name; o.textContent=d.name; sel.appendChild(o)});
-  if(selected) sel.value=selected;
+  cat.domaines.forEach(d=>{ const o=document.createElement('option'); o.value=d.name; dl.appendChild(o); });
+  inp.value = selected !== undefined ? selected : (cat.domaines[0]?.name || '');
 }
 
 function openAddForm(){
@@ -369,6 +399,7 @@ function openAddForm(){
   document.getElementById('field-hebergement').value='';
   document.getElementById('field-desc').value='';
   document.getElementById('field-lien').value='';
+  document.getElementById('field-docs').value='';
   document.getElementById('delete-item').style.display='none';
   document.getElementById('edit-sub').textContent='Nouvel élément';
   document.getElementById('edit-overlay').classList.add('open');
@@ -396,6 +427,7 @@ function openEditForm(name){
   document.getElementById('field-hebergement').value=d.hebergement||'';
   document.getElementById('field-desc').value=d.desc||'';
   document.getElementById('field-lien').value=d.lien||'';
+  document.getElementById('field-docs').value=d.docs||'';
   document.getElementById('field-cat').value=catId;
   populateDomainOptions(catId, domainName);
   document.getElementById('delete-item').style.display='inline-block';
@@ -410,8 +442,11 @@ function submitEditForm(e){
   const original=document.getElementById('original-name').value;
   const name=document.getElementById('field-name').value.trim();
   if(!name) return alert('Le nom est requis');
+  if(name!==original && ITEMS[name]) return alert(`"${name}" existe déjà dans la cartographie.`);
   const catId=document.getElementById('field-cat').value;
-  const domain=document.getElementById('field-domain').value || 'Autres';
+  const domainVal=document.getElementById('field-domain').value.trim();
+  const catForDomain=CATS.find(c=>c.id===catId);
+  const domain=domainVal || catForDomain?.domaines[0]?.name || 'Autres';
   const payload={
     cat: CATS.find(c=>c.id===catId)?.name || '',
     gestion: document.getElementById('field-gestion').value.trim(),
@@ -420,25 +455,33 @@ function submitEditForm(e){
     tech: document.getElementById('field-tech').value.trim(),
     techColor: document.getElementById('field-techcolor').value.trim() || '#888',
     desc: document.getElementById('field-desc').value.trim(),
-    lien: document.getElementById('field-lien').value.trim()
+    lien: document.getElementById('field-lien').value.trim(),
+    docs: document.getElementById('field-docs').value.trim()
   };
-  // if rename
+  // Retirer l'item de tous les domaines (couvre : renommage + changement de catégorie/domaine)
+  CATS.forEach(c=>c.domaines.forEach(d=>{
+    d.items=d.items.filter(i=>i!==original && i!==name);
+  }));
+  // Si renommage : mettre à jour ITEMS et LINKS
   if(original && original!==name){
-    // remove original from ITEMS and from CATS domain
     delete ITEMS[original];
-    CATS.forEach(c=>c.domaines.forEach(d=>{ d.items=d.items.filter(i=>i!==original) }));
+    LINKS.forEach(link=>{
+      if(link[0]===original) link[0]=name;
+      if(link[1]===original) link[1]=name;
+    });
   }
-  // add or update item
+  // Enregistrer l'item
   ITEMS[name]=payload;
-  // ensure domain exists and contains name
+  // Placer l'item dans le bon domaine
   const cat=CATS.find(c=>c.id===catId);
   if(cat){
     let dom=cat.domaines.find(d=>d.name===domain);
     if(!dom){ dom={name:domain,items:[]}; cat.domaines.push(dom); }
-    if(!dom.items.includes(name)) dom.items.push(name);
+    dom.items.push(name);
   }
+  pruneEmptyDomains();
+  rebuildLinksBy();
   saveState();
-  // rebuild UI
   buildStats(); buildLegend(); buildCats();
   closeEditForm();
 }
@@ -449,28 +492,22 @@ function deleteCurrentItem(){
   if(!confirm(`Supprimer "${original}" ?`)) return;
   delete ITEMS[original];
   CATS.forEach(c=>c.domaines.forEach(d=>{ d.items=d.items.filter(i=>i!==original) }));
+  // Supprimer les relations impliquant cet item
+  const remaining=LINKS.filter(([src,dst])=>src!==original && dst!==original);
+  LINKS.length=0;
+  remaining.forEach(l=>LINKS.push(l));
+  pruneEmptyDomains();
+  rebuildLinksBy();
   saveState();
   buildStats(); buildLegend(); buildCats();
   closeEditForm();
 }
 
-// Wire up form and sidebar controls
-const editModeToggle = document.getElementById('m-edit-mode');
-if(editModeToggle) editModeToggle.addEventListener('change',e=>{ editMode=e.target.checked; document.getElementById('search').focus(); });
+// Wire up form controls
 document.getElementById('field-cat').addEventListener('change',e=>populateDomainOptions(e.target.value));
 document.getElementById('edit-form').addEventListener('submit',submitEditForm);
 document.getElementById('cancel-edit').addEventListener('click',closeEditForm);
 document.getElementById('delete-item').addEventListener('click',deleteCurrentItem);
-
-// Sidebar export/import wiring
-const mExport = document.getElementById('m-export-btn');
-if(mExport) mExport.addEventListener('click',()=>exportStateToFile());
-const mImportBtn = document.getElementById('m-import-btn');
-const mImportFile = document.getElementById('m-import-file');
-if(mImportBtn && mImportFile){
-  mImportBtn.addEventListener('click',()=>mImportFile.click());
-  mImportFile.addEventListener('change',e=>{ if(e.target.files && e.target.files[0]){ importStateFromFile(e.target.files[0]); } });
-}
 
 // Mobile menu wiring (burger)
 const burgerBtn = document.getElementById('burger-btn');
@@ -523,6 +560,52 @@ if(burgerBtn && mobileMenu){
   // Do not auto-open on desktop; leave closed by default.
 }
 
-// Initialize: load from localStorage and build UI
-loadState();
-buildStats(); buildLegend(); buildCats();
+// Applique un état (CATS/ITEMS/LINKS) aux variables globales
+function applyStateData(state){
+  if(state.CATS){ CATS.length=0; state.CATS.forEach(c=>CATS.push(c)); }
+  if(state.ITEMS){ Object.keys(ITEMS).forEach(k=>delete ITEMS[k]); Object.assign(ITEMS,state.ITEMS); }
+  if(state.LINKS){ LINKS.length=0; state.LINKS.forEach(l=>LINKS.push(l)); }
+  rebuildLinksBy();
+}
+
+async function fetchServerState(){
+  const res = await fetch('bdd.json?_=' + Date.now());
+  const state = await res.json();
+  if(!state || state.test) return null;
+  return state;
+}
+
+// Polling : vérifie toutes les 5s si quelqu'un a modifié les données
+async function pollForUpdates(){
+  if(document.getElementById('edit-overlay').classList.contains('open')) return;
+  try {
+    const state = await fetchServerState();
+    if(!state) return;
+    if(state._savedAt && state._savedAt !== lastKnownSavedAt){
+      lastKnownSavedAt = state._savedAt;
+      applyStateData(state);
+      applyDocDefaults();
+      buildStats(); buildLegend(); buildCats();
+    }
+  } catch(e){}
+}
+setInterval(pollForUpdates, 5000);
+
+// Initialisation : serveur en priorité (source commune), localStorage en fallback unique
+async function init(){
+  try {
+    const serverState = await fetchServerState();
+    if(serverState){
+      lastKnownSavedAt = serverState._savedAt || null;
+      applyStateData(serverState);
+    } else {
+      const hadLocalData = loadState();
+      if(hadLocalData) saveState(); // migration localStorage → serveur (une seule fois)
+    }
+  } catch(e){
+    loadState();
+  }
+  applyDocDefaults();
+  buildStats(); buildLegend(); buildCats();
+}
+init();

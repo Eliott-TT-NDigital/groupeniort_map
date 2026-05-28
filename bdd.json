@@ -1,3 +1,708 @@
 {
-  "test": true
+  "CATS": [
+    {
+      "id": "grp_reman",
+      "name": "Reman",
+      "color": "#3A6EA5",
+      "domaines": [
+        {
+          "name": "Sites / apps REMAN",
+          "items": [
+            "Full Service",
+            "App Full Service",
+            "Reman Expert"
+          ]
+        },
+        {
+          "name": "E-commerce B2C",
+          "items": [
+            "Maloc EAD"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grp_poids_lourds",
+      "name": "Poids Lourds",
+      "color": "#E67E22",
+      "domaines": [
+        {
+          "name": "Catalogues / Portails",
+          "items": [
+            "Connexion Client NF PL",
+            "Connexion Client DPAN",
+            "Connexion client adfortia"
+          ]
+        },
+        {
+          "name": "E-commerce B2B",
+          "items": [
+            "Truckissimo"
+          ]
+        },
+        {
+          "name": "Catalogues PL",
+          "items": [
+            "Ntrucks Parts"
+          ]
+        },
+        {
+          "name": "Applications internes",
+          "items": [
+            "PIM"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grp_vl",
+      "name": "VL",
+      "color": "#2C3E50",
+      "domaines": [
+        {
+          "name": "Portail / Vitrine",
+          "items": [
+            "Connexion Client NF VL"
+          ]
+        },
+        {
+          "name": "E-commerce B2B",
+          "items": [
+            "Autossimo"
+          ]
+        },
+        {
+          "name": "Fidélité / Marketing",
+          "items": [
+            "My Pièce Auto"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grp_equipement",
+      "name": "Équipement",
+      "color": "#27AE60",
+      "domaines": [
+        {
+          "name": "Portail B2B",
+          "items": [
+            "Connexion Client NTech"
+          ]
+        },
+        {
+          "name": "Vitrine",
+          "items": [
+            "Site Web NTech"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grp_nfs",
+      "name": "NFS (divers)",
+      "color": "#8E44AD",
+      "domaines": [
+        {
+          "name": "ERP & Finance",
+          "items": [
+            "ERP Sage",
+            "ERP Formule 1",
+            "ReadSoft",
+            "Eloficash",
+            "Report One"
+          ]
+        },
+        {
+          "name": "Logistique / Production",
+          "items": [
+            "Modula WMS",
+            "GESTACT",
+            "Telia",
+            "CARL"
+          ]
+        },
+        {
+          "name": "Catalogues & Échanges",
+          "items": [
+            "Tecdoc",
+            "Golda"
+          ]
+        },
+        {
+          "name": "Sites vitrines",
+          "items": [
+            "Site Web Niort Frères",
+            "Site Web ADFortia",
+            "Site Web Mecatrans",
+            "Site Web TMM",
+            "groupeniort.fr",
+            "Niort Exploration"
+          ]
+        },
+        {
+          "name": "Apps internes",
+          "items": [
+            "Alonso",
+            "Atoosync",
+            "Oasis",
+            "Facturéo",
+            "HR Maps",
+            "Octime"
+          ]
+        }
+      ]
+    }
+  ],
+  "ITEMS": {
+    "Full Service": {
+      "cat": "Reman",
+      "gestion": "N Digital",
+      "dev": "WordPress",
+      "hebergement": "N Digital",
+      "tech": "WordPress",
+      "techColor": "#3A6EA5",
+      "desc": "Application de vente pour professionnels avec suivi factures / BL et commandes.",
+      "lien": "https://fullservice-reman.fr"
+    },
+    "App Full Service": {
+      "cat": "Reman",
+      "gestion": "EVVI",
+      "dev": "Symfony (PHP)",
+      "hebergement": "Aquaray",
+      "tech": "Symfony",
+      "techColor": "#6c757d",
+      "desc": "Application de suivi de réparation de filtre à particules.",
+      "lien": "https://app.fullservice-reman.fr/connexion"
+    },
+    "Reman Expert": {
+      "cat": "Reman",
+      "gestion": "Octevia (Julien de Sablet)",
+      "dev": "WordPress / WooCommerce",
+      "hebergement": "Webaxys",
+      "tech": "WordPress",
+      "techColor": "#3A6EA5",
+      "desc": "Site regroupant l'ensemble des applications Reman.",
+      "lien": "https://reman-expert.fr"
+    },
+    "Maloc EAD": {
+      "cat": "Reman",
+      "gestion": "EVVI",
+      "dev": "WordPress / WooCommerce",
+      "hebergement": "Infomaniak",
+      "tech": "WordPress",
+      "techColor": "#3A6EA5",
+      "desc": "Site de location d'EAD pour particuliers, avec gestion d'installations.",
+      "lien": "https://maloc-ead.fr",
+      "docs": "https://docs.n-digital.fr/docs/category/maloc-ead"
+    },
+    "Connexion Client NF PL": {
+      "cat": "Poids Lourds",
+      "gestion": "InConcept",
+      "dev": "AS400",
+      "hebergement": "Groupe Niort (Rouen)",
+      "tech": "AS400",
+      "techColor": "#8E44AD",
+      "desc": "Catalogue en ligne des pièces poids lourd avec prix et descriptions produits.",
+      "lien": "https://webpl.niortfreres.fr"
+    },
+    "Connexion Client DPAN": {
+      "cat": "Poids Lourds",
+      "gestion": "InConcept",
+      "dev": "AS400",
+      "hebergement": "Groupe Niort (Rouen)",
+      "tech": "AS400",
+      "techColor": "#8E44AD",
+      "desc": "Catalogue en ligne des pièces poids lourd, achat de pièces, liste des prix et descriptions.",
+      "lien": "https://webdpan.dpan.fr"
+    },
+    "Connexion client adfortia": {
+      "cat": "Poids Lourds",
+      "gestion": "InConcept",
+      "dev": "AS400",
+      "hebergement": "Groupe Niort (Rouen)",
+      "tech": "AS400",
+      "techColor": "#8E44AD",
+      "desc": "Catalogue en ligne des pièces poids lourd, achat de pièces, liste des prix et descriptions.",
+      "lien": "https://webadfortia.adfortia.fr"
+    },
+    "Truckissimo": {
+      "cat": "Poids Lourds",
+      "gestion": "Autodistribution",
+      "dev": "From scratch",
+      "hebergement": "Autodistribution",
+      "tech": "Web",
+      "techColor": "#555",
+      "desc": "Application de vente en ligne de pièces poids lourd avec liste de prix et descriptions.",
+      "lien": "https://www3.truckissimo.fr"
+    },
+    "Ntrucks Parts": {
+      "cat": "Poids Lourds",
+      "gestion": "EVVI",
+      "dev": "Directus",
+      "hebergement": "Webaxys",
+      "tech": "Directus",
+      "techColor": "#27AE60",
+      "desc": "Catalogue en ligne des pièces poids lourd pour Ntrucks.",
+      "lien": "https://ntrucks-parts.fr"
+    },
+    "PIM": {
+      "cat": "Poids Lourds",
+      "gestion": "NDigital",
+      "dev": "NDigital",
+      "hebergement": "OVH",
+      "tech": "PHP",
+      "techColor": "#7952b3",
+      "desc": "Product Information Manager (PIM).",
+      "lien": "https://pim.4bus.fr"
+    },
+    "Connexion Client NF VL": {
+      "cat": "VL",
+      "gestion": "InConcept",
+      "dev": "WordPress / Elementor",
+      "hebergement": "Webaxys",
+      "tech": "WordPress",
+      "techColor": "#3A6EA5",
+      "desc": "Site vitrine Niort Frères avec présentation activités et formulaires de contact.",
+      "lien": "https://webnf.niortfreres.fr"
+    },
+    "Autossimo": {
+      "cat": "VL",
+      "gestion": "Autodistribution",
+      "dev": "From scratch",
+      "hebergement": "Autodistribution",
+      "tech": "Web",
+      "techColor": "#555",
+      "desc": "Site de vente pour professionnels géré par Autodistribution.",
+      "lien": "https://www3.autossimo.com"
+    },
+    "My Pièce Auto": {
+      "cat": "VL",
+      "gestion": "Autodistribution",
+      "dev": "From scratch",
+      "hebergement": "Autodistribution",
+      "tech": "Web",
+      "techColor": "#555",
+      "desc": "Programme fidélité et portail associé.",
+      "lien": "https://autodistribution.fr/carte-my-pieceauto"
+    },
+    "Connexion Client NTech": {
+      "cat": "Équipement",
+      "gestion": "InConcept",
+      "dev": "AS400",
+      "hebergement": "Groupe Niort (Rouen)",
+      "tech": "AS400",
+      "techColor": "#8E44AD",
+      "desc": "Site de vente pour professionnels NTech avec accès factures, BL et commandes.",
+      "lien": "https://webcli.ntech-equipement.fr"
+    },
+    "Site Web NTech": {
+      "cat": "Équipement",
+      "gestion": "EVVI",
+      "dev": "WordPress / Elementor",
+      "hebergement": "Webaxys",
+      "tech": "WordPress",
+      "techColor": "#3A6EA5",
+      "desc": "Site vitrine de présentation des activités NTech avec formulaires de contact.",
+      "lien": "https://ntech-equipement.fr"
+    },
+    "ERP Sage": {
+      "cat": "NFS (divers)",
+      "gestion": "Absys Ciborg / Interne",
+      "dev": "Éditeur",
+      "hebergement": "Lons",
+      "tech": "Sage",
+      "techColor": "#E67E22",
+      "desc": "ERP finance et gestion, interfacé avec Golda, Tecdoc, ReadSoft…"
+    },
+    "ERP Formule 1": {
+      "cat": "NFS (divers)",
+      "gestion": "Interne",
+      "dev": "Éditeur",
+      "hebergement": "Interne",
+      "tech": "Formule 1",
+      "techColor": "#E67E22",
+      "desc": "ERP métier pour gestion commerciale et logistique."
+    },
+    "ReadSoft": {
+      "cat": "NFS (divers)",
+      "gestion": "Absys Ciborg / Interne",
+      "dev": "Éditeur",
+      "hebergement": "N0SRVAP08",
+      "tech": "Web",
+      "techColor": "#555",
+      "desc": "Gestion des factures fournisseurs et workflow de validation."
+    },
+    "Eloficash": {
+      "cat": "NFS (divers)",
+      "gestion": "Interne",
+      "dev": "Éditeur",
+      "hebergement": "N0SRVAP0X",
+      "tech": "Web",
+      "techColor": "#555",
+      "desc": "Outil de relance paiement client."
+    },
+    "Report One": {
+      "cat": "NFS (divers)",
+      "gestion": "Tommas Servis Informatique",
+      "dev": "Éditeur",
+      "hebergement": "Interne",
+      "tech": "Client lourd / Web",
+      "techColor": "#888",
+      "desc": "Reporting et décisionnel connecté aux ERP."
+    },
+    "Modula WMS": {
+      "cat": "NFS (divers)",
+      "gestion": "Interne",
+      "dev": "Éditeur",
+      "hebergement": "SRVWMS",
+      "tech": "Client lourd",
+      "techColor": "#888",
+      "desc": "Gestion des stocks via armoires Modula, accès opérateur et superviseur."
+    },
+    "GESTACT": {
+      "cat": "NFS (divers)",
+      "gestion": "Interne",
+      "dev": "Éditeur",
+      "hebergement": "LOSRVBD01",
+      "tech": "Client lourd",
+      "techColor": "#888",
+      "desc": "Suivi de la vieille matière, postes de production et stocks."
+    },
+    "Telia": {
+      "cat": "NFS (divers)",
+      "gestion": "Interne",
+      "dev": "Éditeur",
+      "hebergement": "SaaS",
+      "tech": "Web / Mobile",
+      "techColor": "#555",
+      "desc": "Gestion des livraisons clients, interface web superviseurs et app chauffeur."
+    },
+    "CARL": {
+      "cat": "NFS (divers)",
+      "gestion": "Interne",
+      "dev": "Éditeur",
+      "hebergement": "SaaS",
+      "tech": "Web / Mobile",
+      "techColor": "#555",
+      "desc": "GMAO pour la maintenance des équipements."
+    },
+    "Tecdoc": {
+      "cat": "NFS (divers)",
+      "gestion": "Tec Alliance",
+      "dev": "Éditeur",
+      "hebergement": "Externe",
+      "tech": "Portail web",
+      "techColor": "#555",
+      "desc": "Catalogue des articles de tous les équipementiers dans le monde."
+    },
+    "Golda": {
+      "cat": "NFS (divers)",
+      "gestion": "Interne / Éditeur",
+      "dev": "Éditeur",
+      "hebergement": "Externe",
+      "tech": "Portail web",
+      "techColor": "#555",
+      "desc": "Échange de données inter-entreprises avec les ERP."
+    },
+    "Site Web Niort Frères": {
+      "cat": "NFS (divers)",
+      "gestion": "EVVI",
+      "dev": "WordPress / Elementor",
+      "hebergement": "Webaxys",
+      "tech": "WordPress",
+      "techColor": "#3A6EA5",
+      "desc": "Site vitrine Niort Frères avec présentation activités et formulaires de contact.",
+      "lien": "https://www.niortfreres.fr"
+    },
+    "Site Web ADFortia": {
+      "cat": "NFS (divers)",
+      "gestion": "EVVI",
+      "dev": "WordPress / Elementor",
+      "hebergement": "Webaxys",
+      "tech": "WordPress",
+      "techColor": "#3A6EA5",
+      "desc": "Site vitrine ADFortia avec présentation des prestations.",
+      "lien": "https://adfortia.fr"
+    },
+    "Site Web Mecatrans": {
+      "cat": "NFS (divers)",
+      "gestion": "EVVI",
+      "dev": "WordPress",
+      "hebergement": "Webaxys",
+      "tech": "WordPress",
+      "techColor": "#3A6EA5",
+      "desc": "Site vitrine pour MECATRANS.",
+      "lien": "https://mecatrans.eu"
+    },
+    "Site Web TMM": {
+      "cat": "NFS (divers)",
+      "gestion": "EVVI",
+      "dev": "WordPress / WooCommerce",
+      "hebergement": "Webaxys",
+      "tech": "WordPress",
+      "techColor": "#3A6EA5",
+      "desc": "Site vitrine pour Turbos Moteurs Migné.",
+      "lien": "https://turbos-moteurs-migne.com"
+    },
+    "groupeniort.fr": {
+      "cat": "NFS (divers)",
+      "gestion": "NDigital",
+      "dev": "WordPress / Elementor",
+      "hebergement": "OVH",
+      "tech": "WordPress",
+      "techColor": "#3A6EA5",
+      "desc": "Site WordPress pour les offres d'emploi du Groupe Niort.",
+      "lien": "https://groupeniort.fr/carrieres"
+    },
+    "Niort Exploration": {
+      "cat": "NFS (divers)",
+      "gestion": "EVVI",
+      "dev": "WordPress / Elementor",
+      "hebergement": "Webaxys",
+      "tech": "WordPress",
+      "techColor": "#3A6EA5",
+      "desc": "Site vitrine pour la collaboration Mathieu Tordeur x Groupe Niort.",
+      "lien": "https://niort-exploration.fr"
+    },
+    "Alonso": {
+      "cat": "NFS (divers)",
+      "gestion": "NDigital / EVVI",
+      "dev": "Web",
+      "hebergement": "Groupe Niort (N0SRVAPDEK)",
+      "tech": "Web",
+      "techColor": "#555",
+      "desc": "Application reliée aux armoires Modula avec mises à jour régulières."
+    },
+    "Atoosync": {
+      "cat": "NFS (divers)",
+      "gestion": "Carooline / Atoonext",
+      "dev": "Logiciel",
+      "hebergement": "Groupe Niort",
+      "tech": "Logiciel",
+      "techColor": "#888",
+      "desc": "Logiciel de synchronisation Sage ↔ Oasis."
+    },
+    "Oasis": {
+      "cat": "NFS (divers)",
+      "gestion": "Oasis Projet",
+      "dev": "Windev",
+      "hebergement": "Local",
+      "tech": "Windev",
+      "techColor": "#888",
+      "desc": "Application interne de suivi qualité FAP."
+    },
+    "Facturéo": {
+      "cat": "NFS (divers)",
+      "gestion": "NDigital / EVVI",
+      "dev": "Web",
+      "hebergement": "Groupe Niort",
+      "tech": "Web",
+      "techColor": "#555",
+      "desc": "Application de consultation des factures pour les clients du Groupe Niort.",
+      "lien": "https://factureo.gpnsi.local:3000/"
+    },
+    "HR Maps": {
+      "cat": "NFS (divers)",
+      "gestion": "Ressources Humaines",
+      "dev": "Inconnu",
+      "hebergement": "HRMAPS",
+      "tech": "Web",
+      "techColor": "#555",
+      "desc": "Application de gestion de données pour les employés (fiches de paie, actualités…)"
+    },
+    "Octime": {
+      "cat": "NFS (divers)",
+      "gestion": "RH / Oasis Projet",
+      "dev": "Web",
+      "hebergement": "Octime (SaaS)",
+      "tech": "Web",
+      "techColor": "#555",
+      "desc": "Application de gestion des horaires et congés pour employés et managers.",
+      "lien": "https://saas-niortfreres.octime.net/wd240awp/wd240awp.exe/connect/weoctime100?ini=niortfreres"
+    }
+  },
+  "LINKS": [
+    [
+      "ERP Sage",
+      "Golda",
+      "échange de données"
+    ],
+    [
+      "ERP Sage",
+      "Tecdoc",
+      "catalogue articles"
+    ],
+    [
+      "ERP Sage",
+      "ReadSoft",
+      "workflow factures"
+    ],
+    [
+      "ERP Sage",
+      "Eloficash",
+      "relance paiements"
+    ],
+    [
+      "ERP Sage",
+      "Report One",
+      "reporting"
+    ],
+    [
+      "ERP Sage",
+      "Atoosync",
+      "synchronisation"
+    ],
+    [
+      "Atoosync",
+      "ERP Sage",
+      "synchronisation"
+    ],
+    [
+      "Atoosync",
+      "Oasis",
+      "synchronisation"
+    ],
+    [
+      "Oasis",
+      "Atoosync",
+      "synchronisation"
+    ],
+    [
+      "Alonso",
+      "Modula WMS",
+      "relié aux armoires"
+    ],
+    [
+      "Modula WMS",
+      "Alonso",
+      "relié aux armoires"
+    ],
+    [
+      "Golda",
+      "ERP Sage",
+      "échange de données"
+    ],
+    [
+      "Golda",
+      "ERP Formule 1",
+      "échange de données"
+    ],
+    [
+      "Report One",
+      "ERP Sage",
+      "connecté"
+    ],
+    [
+      "Report One",
+      "ERP Formule 1",
+      "connecté"
+    ],
+    [
+      "Truckissimo",
+      "Autossimo",
+      "même opérateur (Autodistribution)"
+    ],
+    [
+      "Autossimo",
+      "Truckissimo",
+      "même opérateur (Autodistribution)"
+    ],
+    [
+      "Autossimo",
+      "My Pièce Auto",
+      "même opérateur"
+    ],
+    [
+      "My Pièce Auto",
+      "Autossimo",
+      "même opérateur"
+    ],
+    [
+      "Full Service",
+      "App Full Service",
+      "application associée"
+    ],
+    [
+      "App Full Service",
+      "Full Service",
+      "site principal"
+    ],
+    [
+      "Reman Expert",
+      "Full Service",
+      "regroupé"
+    ],
+    [
+      "Reman Expert",
+      "App Full Service",
+      "regroupé"
+    ],
+    [
+      "Reman Expert",
+      "Maloc EAD",
+      "regroupé"
+    ],
+    [
+      "Connexion Client NF PL",
+      "Connexion Client DPAN",
+      "même infra AS400"
+    ],
+    [
+      "Connexion Client NF PL",
+      "Connexion client adfortia",
+      "même infra AS400"
+    ],
+    [
+      "Connexion Client DPAN",
+      "Connexion Client NF PL",
+      "même infra AS400"
+    ],
+    [
+      "Connexion Client DPAN",
+      "Connexion client adfortia",
+      "même infra AS400"
+    ],
+    [
+      "Connexion client adfortia",
+      "Connexion Client NF PL",
+      "même infra AS400"
+    ],
+    [
+      "Connexion client adfortia",
+      "Connexion Client DPAN",
+      "même infra AS400"
+    ],
+    [
+      "Connexion Client NTech",
+      "Connexion Client NF PL",
+      "même infra AS400"
+    ],
+    [
+      "HR Maps",
+      "Octime",
+      "accessible via Octime"
+    ],
+    [
+      "Octime",
+      "HR Maps",
+      "donne accès à HR Maps"
+    ],
+    [
+      "PIM",
+      "Ntrucks Parts",
+      "alimente le catalogue"
+    ],
+    [
+      "groupeniort.fr",
+      "Site Web Niort Frères",
+      "même groupe"
+    ],
+    [
+      "groupeniort.fr",
+      "Site Web ADFortia",
+      "même groupe"
+    ]
+  ],
+  "_savedAt": 1779971973913
 }

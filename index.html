@@ -71,7 +71,7 @@
         <input type="hidden" id="original-name">
         <div class="field"><div class="field-label">Nom</div><input id="field-name" class="field-value" required></div>
         <div class="field"><div class="field-label">Catégorie</div><select id="field-cat" class="field-value"></select></div>
-        <div class="field"><div class="field-label">Domaine</div><select id="field-domain" class="field-value"></select></div>
+        <div class="field"><div class="field-label">Domaine</div><input id="field-domain" class="field-value" list="field-domain-list" placeholder="Choisir ou créer un domaine…" autocomplete="off"><datalist id="field-domain-list"></datalist></div>
         <div class="field"><div class="field-label">Technologie</div><input id="field-tech" class="field-value"></div>
         <div class="field"><div class="field-label">Couleur tech (hex)</div><input id="field-techcolor" class="field-value" placeholder="#3A6EA5"></div>
         <div class="field"><div class="field-label">Gestion / Interlocuteur</div><input id="field-gestion" class="field-value"></div>
@@ -79,6 +79,7 @@
         <div class="field"><div class="field-label">Hébergement</div><input id="field-hebergement" class="field-value"></div>
         <div class="field"><div class="field-label">Description</div><textarea id="field-desc" class="field-value" rows="4"></textarea></div>
         <div class="field"><div class="field-label">Lien</div><input id="field-lien" class="field-value"></div>
+        <div class="field"><div class="field-label">Lien documentation</div><input id="field-docs" class="field-value" placeholder="https://docs.n-digital.fr/docs/category/…"></div>
         <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
           <button type="submit" class="btn">Enregistrer</button>
           <button type="button" class="btn" id="cancel-edit">Annuler</button>
@@ -89,6 +90,7 @@
   </div>
 </div>
 
+<script src="storage_remote.js" defer></script>
 <script src="storage.js" defer></script>
 <script src="app.js" defer></script>
 </body>
