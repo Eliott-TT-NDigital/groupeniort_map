@@ -15,12 +15,12 @@
   </div>
   <div style="display:flex;align-items:center;gap:12px;position:relative;">
     <div class="legend" id="legend"></div>
-    <button id="burger-btn" class="burger-btn" aria-label="Ouvrir le menu">☰</button>
+    <button id="burger-btn" class="burger-btn" aria-label="Ouvrir le menu">Menu</button>
     <div id="sidebar-backdrop" class="sidebar-backdrop" aria-hidden="true"></div>
     <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
       <div class="sidebar-header">
         <div class="sidebar-title">Menu</div>
-        <button id="sidebar-close" class="sidebar-close-btn" aria-label="Fermer la sidebar">✕</button>
+        <button id="sidebar-close" class="sidebar-close-btn" aria-label="Fermer la sidebar">Fermer</button>
       </div>
       <label class="menu-item"><input id="m-edit-mode" type="checkbox"><span class="mi-text">Mode édition</span></label>
       <button id="m-add-btn" class="menu-item"><span class="mi-text">Ajouter</span></button>
@@ -50,7 +50,7 @@
         <div class="modal-title" id="m-title">—</div>
         <div class="modal-cat" id="m-cat"></div>
       </div>
-      <button class="close-btn" onclick="closeModal()">✕</button>
+      <button class="close-btn" onclick="closeModal()">Fermer</button>
     </div>
     <div class="modal-body" id="m-body"></div>
   </div>
@@ -64,7 +64,7 @@
         <div class="modal-title" id="edit-title">Modifier / Ajouter</div>
         <div class="modal-cat" id="edit-sub"></div>
       </div>
-      <button class="close-btn" onclick="closeEditForm()">✕</button>
+      <button class="close-btn" onclick="closeEditForm()">Fermer</button>
     </div>
     <div class="modal-body">
       <form id="edit-form">
