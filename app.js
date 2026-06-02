@@ -25,6 +25,7 @@ const CATS=[
     {name:"Sites vitrines",items:["Site Web Niort Frères","Site Web ADFortia","Site Web Mecatrans","Site Web TMM","groupeniort.fr","Niort Exploration"]},
     {name:"Apps internes",items:["Alonso","Atoosync","Oasis","Facturéo","HR Maps","Octime"]}
   ]},
+  {id:"grp_externe",name:"Externe",color:"#7F8C8D",domaines:[]},
   {id:"grp_schemas",name:"Schémas de flux",color:"#1D9E75",type:"schema",domaines:[]}
 ];
 
@@ -400,6 +401,16 @@ function ensureSchemasCat(){
   }
 }
 
+function ensureExterneCat(){
+  if(!CATS.find(c=>c.id==='grp_externe')){
+    // Insérer avant grp_schemas
+    const schIdx=CATS.findIndex(c=>c.id==='grp_schemas');
+    const entry={id:"grp_externe",name:"Externe",color:"#7F8C8D",domaines:[]};
+    if(schIdx>=0) CATS.splice(schIdx,0,entry);
+    else CATS.push(entry);
+  }
+}
+
 function loadState(){
   const state = window.StorageAPI.load();
   if(!state) return false;
@@ -409,7 +420,7 @@ function loadState(){
   if(state.schemas) { SCHEMAS.length=0; state.schemas.forEach(s=>SCHEMAS.push(s)); }
   Object.keys(LINKS_BY).forEach(k=>delete LINKS_BY[k]);
   LINKS.forEach(([src,dst,label])=>{ if(!LINKS_BY[src])LINKS_BY[src]=[]; LINKS_BY[src].push({target:dst,label:label||''}) });
-  ensureSchemasCat();
+  ensureSchemasCat(); ensureExterneCat();
   applyDocDefaults();
   return true;
 }
@@ -424,7 +435,7 @@ function importStateFromFile(file){
     if(state.schemas) { SCHEMAS.length=0; state.schemas.forEach(s=>SCHEMAS.push(s)); }
     Object.keys(LINKS_BY).forEach(k=>delete LINKS_BY[k]);
     LINKS.forEach(([src,dst,label])=>{ if(!LINKS_BY[src])LINKS_BY[src]=[]; LINKS_BY[src].push({target:dst,label:label||''}) });
-    ensureSchemasCat();
+    ensureSchemasCat(); ensureExterneCat();
     applyDocDefaults();
     buildStats(); buildLegend(); buildCats();
   }).catch(()=>alert('JSON invalide'));
@@ -609,7 +620,7 @@ function applyStateData(state){
   if(state.ITEMS){ Object.keys(ITEMS).forEach(k=>delete ITEMS[k]); Object.assign(ITEMS,state.ITEMS); }
   if(state.LINKS){ LINKS.length=0; state.LINKS.forEach(l=>LINKS.push(l)); }
   if(state.schemas){ SCHEMAS.length=0; state.schemas.forEach(s=>SCHEMAS.push(s)); }
-  ensureSchemasCat();
+  ensureSchemasCat(); ensureExterneCat();
   rebuildLinksBy();
 }
 
