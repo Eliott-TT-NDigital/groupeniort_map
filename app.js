@@ -1607,8 +1607,20 @@ function exportSchemaSVG(catId){
     const label=n.name.length>22?n.name.slice(0,21)+'…':n.name;
     nodes+=`<text x="${n.x+24}" y="${n.y+NODE_H/2}" dominant-baseline="middle" font-size="12" fill="${n.type==='item'?col:'#1a1a18'}" font-family="sans-serif" text-decoration="${n.type==='item'?'underline':'none'}">${label.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</text>`;
   });
-  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${vw}" height="${vh}">
+  // Orientation A4 selon les proportions du schéma
+  const landscape = vw > vh;
+  const a4W = landscape ? 297 : 210;
+  const a4H = landscape ? 210 : 297;
+  const svg=`<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="${a4W}mm" height="${a4H}mm"
+     viewBox="0 0 ${vw} ${vh}"
+     preserveAspectRatio="xMidYMid meet">
 <defs>
+  <style>
+    @page { size: ${landscape?'A4 landscape':'A4 portrait'}; margin:8mm; }
+    svg { display:block; }
+  </style>
   <marker id="ea" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0,.5L0,6.5L8,3.5z" fill="#888"/></marker>
   <marker id="ea-rev" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto-start-reverse"><path d="M0,.5L0,6.5L8,3.5z" fill="#888"/></marker>
 </defs>
