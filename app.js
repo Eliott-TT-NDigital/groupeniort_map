@@ -1590,12 +1590,14 @@ function exportSchemaSVG(catId){
     if(!fn||!tn) return;
     const {d,lx,ly}=getArrowPath(arr,fn,tn,ag);
     const col=arr.color||(arr.style==='dashed'?'#bbb':'#888');
-    arrows+=`<path d="${d}" fill="none" stroke="${col}" stroke-width="1.5"${arr.style==='dashed'?' stroke-dasharray="6,4"':''} marker-end="url(#ea)"/>`;
-    if(arr.dir==='<->') arrows=arrows.replace('marker-end','marker-start="url(#ea)" marker-end');
+    const labelX=lx+(arr.labelDx||0), labelY=ly+(arr.labelDy||0);
+    // Attributs construits directement — pas de .replace() pour éviter les doublons
+    const mStart=arr.dir==='<->'?' marker-start="url(#ea-rev)"':'';
+    arrows+=`<path d="${d}" fill="none" stroke="${col}" stroke-width="1.5"${arr.style==='dashed'?' stroke-dasharray="6,4"':''}${mStart} marker-end="url(#ea)"/>`;
     if(arr.label){
       const lw=Math.min(arr.label.length*6+14,130);
-      arrows+=`<rect x="${lx-lw/2}" y="${ly-9}" width="${lw}" height="18" rx="4" fill="#fff" stroke="#e0dfd8"/>`;
-      arrows+=`<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="10" fill="#888" font-family="sans-serif">${arr.label.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</text>`;
+      arrows+=`<rect x="${labelX-lw/2}" y="${labelY-9}" width="${lw}" height="18" rx="4" fill="#fff" stroke="#e0dfd8"/>`;
+      arrows+=`<text x="${labelX}" y="${labelY}" text-anchor="middle" dominant-baseline="middle" font-size="10" fill="#888" font-family="sans-serif">${arr.label.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</text>`;
     }
   });
   s.nodes.forEach(n=>{
@@ -1606,7 +1608,10 @@ function exportSchemaSVG(catId){
     nodes+=`<text x="${n.x+24}" y="${n.y+NODE_H/2}" dominant-baseline="middle" font-size="12" fill="${n.type==='item'?col:'#1a1a18'}" font-family="sans-serif" text-decoration="${n.type==='item'?'underline':'none'}">${label.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</text>`;
   });
   const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${vw}" height="${vh}">
-<defs><marker id="ea" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0,.5L0,6.5L8,3.5z" fill="#888"/></marker></defs>
+<defs>
+  <marker id="ea" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0,.5L0,6.5L8,3.5z" fill="#888"/></marker>
+  <marker id="ea-rev" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto-start-reverse"><path d="M0,.5L0,6.5L8,3.5z" fill="#888"/></marker>
+</defs>
 <rect width="${vw}" height="${vh}" fill="#faf9f7"/>
 <g transform="translate(${-ox},${-oy})">${arrows}${nodes}</g>
 </svg>`;
